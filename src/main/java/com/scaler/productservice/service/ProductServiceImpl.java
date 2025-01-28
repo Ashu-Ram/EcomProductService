@@ -3,19 +3,22 @@ package com.scaler.productservice.service;
 import com.scaler.productservice.dto.ProductListResponseDTO;
 import com.scaler.productservice.dto.ProductRequestDTO;
 import com.scaler.productservice.dto.ProductResponseDTO;
+import com.scaler.productservice.exception.InvalidTitleException;
+import com.scaler.productservice.exception.ProductNotFoundException;
 import com.scaler.productservice.mapper.ProductMapper;
 import com.scaler.productservice.model.Product;
 import com.scaler.productservice.repo.PriceRepository;
 import com.scaler.productservice.repo.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidAlgorithmParameterException;
 import java.util.List;
 
 @Service("productService")
-public class ProductServiceImpl implements  ProductService {
+public class ProductServiceImpl implements ProductService {
 
 
-    private  final PriceRepository priceRepository;
+    private final PriceRepository priceRepository;
     private final ProductRepository productRepository;
 
     public ProductServiceImpl(PriceRepository priceRepository,
@@ -45,7 +48,6 @@ public class ProductServiceImpl implements  ProductService {
     }
 
 
-
     @Override
     public boolean deleteProduct(int id) {
         return false;
@@ -57,12 +59,21 @@ public class ProductServiceImpl implements  ProductService {
     }
 
     @Override
-    public ProductResponseDTO findProductByTitle(String title) {
+    public ProductResponseDTO findProductByTitle(String title) throws ProductNotFoundException {
         // findAll() -> List of products
         // findbyid ()-> product by product id
-Product product = productRepository.findByTitle(title);
-ProductResponseDTO responseDTO= ProductMapper.convertProductToProductResponseDTO(product);
-return responseDTO;
+
+        if (title == null || title.isEmpty()) {
+            throw new InvalidTitleException("Title is Invalid");
+
+        }
+        Product product = productRepository.findByTitle(title);
+        if (product == null) {
+            throw new ProductNotFoundException("product with given title is not available");
+        }
+
+        return ProductMapper.convertProductToProductResponseDTO(product);
+
 
 
     }

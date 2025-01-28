@@ -1,5 +1,8 @@
 package com.scaler.productservice.service;
 
+import com.scaler.productservice.demo.Author;
+import com.scaler.productservice.demo.AuthorRepository;
+import com.scaler.productservice.demo.Book;
 import com.scaler.productservice.model.Category;
 import com.scaler.productservice.model.Order;
 import com.scaler.productservice.model.Price;
@@ -8,6 +11,7 @@ import com.scaler.productservice.repo.CategoryRepository;
 import com.scaler.productservice.repo.OrderRepository;
 import com.scaler.productservice.repo.PriceRepository;
 import com.scaler.productservice.repo.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,14 +24,18 @@ public class InitServiceImpl implements InitService {
     private final OrderRepository orderRepository;
     private final CategoryRepository categoryRepository;
 
+    private final AuthorRepository authorRepository;
 
-    public InitServiceImpl(ProductRepository productRepository, OrderRepository orderRepository, PriceRepository priceRepository, CategoryRepository categoryRepository) {
+
+    public InitServiceImpl(ProductRepository productRepository, OrderRepository orderRepository, PriceRepository priceRepository, CategoryRepository categoryRepository, AuthorRepository authorRepository) {
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
         this.priceRepository = priceRepository;
         this.categoryRepository = categoryRepository;
+        this.authorRepository = authorRepository;
     }
 
+    @Transactional
     @Override
     public void initiallise() {
 
@@ -99,6 +107,23 @@ public class InitServiceImpl implements InitService {
 
         Order order = new Order();
         order.setProducts(List.of(iphone, mackbook, watch));
-        order= orderRepository.save(order);
+        order = orderRepository.save(order);
+
+        Author author = new Author("Ashok kumar", null);
+        Book book1 = new Book("Book1", author);
+        Book book2 = new Book("Book2", author);
+        Book book3 = new Book("Book3", author);
+
+        author.setBooks(List.of(book1, book2, book3));
+        authorRepository.save(author); /// cascade all -> If we save author , all dependent object should also get saved
+
+        Author savedAuthor = authorRepository.findById(1).get();
+
+        // List<Book> books= bookRepo.findByAuthor_Id(savedAuthor.getId();
+        //savedAuthor.setBooks(books);
+       // System.out.println(savedAuthor.getName());
+        List<Book> books = savedAuthor.getBooks();
+         System.out.println(books);
+      // bookRepo.findByAuthor_Id/(int authorId);
     }
 }
