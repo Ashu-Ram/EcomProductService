@@ -8,18 +8,15 @@ import com.scaler.productservice.model.Product;
 
 public interface ProductService {
 
-ProductListResponseDTO getAllProducts();
+    ProductListResponseDTO getAllProducts();
 
-ProductResponseDTO getProductById(int id) throws ProductNotFoundException;
+    ProductResponseDTO getProductById(int id) throws ProductNotFoundException;
 
-ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO);
+    ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO);
 
-boolean  deleteProduct(int id);
+    boolean deleteProduct(int id);
 
-Product updateProduct(int id, Product updatedProduct);
+    Product updateProduct(int id, Product updatedProduct);
 
-
-ProductResponseDTO findProductByTitle(String title) throws ProductNotFoundException;
-
-
+    ProductResponseDTO findProductByTitle(String title) throws ProductNotFoundException;
 }

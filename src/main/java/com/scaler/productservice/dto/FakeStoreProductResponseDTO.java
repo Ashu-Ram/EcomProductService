@@ -1,9 +1,8 @@
 package com.scaler.productservice.dto;
 
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -14,5 +13,4 @@ public class FakeStoreProductResponseDTO {
     private String category;
     private String description;
     private String image;
-
 }

@@ -2,17 +2,15 @@ package com.scaler.productservice.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
+import java.util.List;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-@Entity(name="ECOM_ORDER")
-public class Order extends  BaseModel{
+@Entity(name = "ECOM_ORDER")
+public class Order extends BaseModel {
 
-@ManyToMany
-private List<Product> products;
-
+    @ManyToMany
+    private List<Product> products;
 }
 
 /*

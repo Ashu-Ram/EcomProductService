@@ -1,11 +1,11 @@
 package com.scaler.productservice.demo;
 
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import java.util.List;
 
 @Getter
 @Setter
@@ -22,12 +22,10 @@ public class Author {
     @Fetch(FetchMode.SELECT)
     private List<Book> books;
 
-    public Author() {
-    }
+    public Author() {}
 
     public Author(String name, List<Book> books) {
         this.name = name;
         this.books = books;
     }
-
 }

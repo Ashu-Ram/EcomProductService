@@ -1,5 +1,6 @@
 package com.scaler.productservice;
 
+import static org.mockito.Mockito.when;
 
 import com.scaler.productservice.dto.ProductResponseDTO;
 import com.scaler.productservice.exception.InvalidTitleException;
@@ -9,6 +10,7 @@ import com.scaler.productservice.model.Price;
 import com.scaler.productservice.model.Product;
 import com.scaler.productservice.repo.ProductRepository;
 import com.scaler.productservice.service.ProductServiceImpl;
+import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,18 +18,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.UUID;
-
-import static org.mockito.Mockito.when;
-
- class ProductServiceImpTest {
+class ProductServiceImpTest {
 
     @Mock // we need a mock object of the given attribute
     private ProductRepository productRepository;
 
     @InjectMocks // this is the class we want to test, and this is where we would inject the mock objects
     private ProductServiceImpl productService;
-
 
     @BeforeEach
     public void setup() {
@@ -36,7 +33,7 @@ import static org.mockito.Mockito.when;
     }
 
     @Test
-     void testFindProductByTitleSuccess() throws ProductNotFoundException {
+    void testFindProductByTitleSuccess() throws ProductNotFoundException {
         // Arrange
         Price mockPrice = new Price();
         mockPrice.setAmount(100);
@@ -51,31 +48,27 @@ import static org.mockito.Mockito.when;
         mockProduct.setCategory(mockCategory);
         when(productRepository.findByTitle(testTitle)).thenReturn(mockProduct);
 
-        //Act
+        // Act
         ProductResponseDTO acutalResponse = productService.findProductByTitle(testTitle);
 
-        //Assert
+        // Assert
         Assertions.assertEquals(acutalResponse.getTitle(), mockProduct.getTitle());
         Assertions.assertEquals(acutalResponse.getDescription(), mockProduct.getDescription());
         Assertions.assertEquals(acutalResponse.getId(), mockProduct.getId());
-        Assertions.assertEquals(acutalResponse.getPrice(), mockProduct.getPrice().getAmount());
-
-
+        Assertions.assertEquals(
+                acutalResponse.getPrice(), mockProduct.getPrice().getAmount());
     }
 
     @Test
-     void testFindByProductByTitleRepo_ResponseWithNullObject() {
+    void testFindByProductByTitleRepo_ResponseWithNullObject() {
         String testTitle = "testProductTitle";
         when(productRepository.findByTitle(testTitle)).thenReturn(null);
 
         Assertions.assertThrows(ProductNotFoundException.class, () -> productService.findProductByTitle(testTitle));
-
-
     }
 
-
     @Test
-     void testFindProductByTitle_NullTitle() {
+    void testFindProductByTitle_NullTitle() {
         // Arrange
         Price mockPrice = new Price();
         mockPrice.setAmount(100);
@@ -90,14 +83,13 @@ import static org.mockito.Mockito.when;
         mockProduct.setCategory(mockCategory);
         when(productRepository.findByTitle(testTitle)).thenReturn(mockProduct);
 
-        //Assert & Act
+        // Assert & Act
 
-        Assertions.assertThrows(InvalidTitleException.class,() -> productService.findProductByTitle(testTitle));
-
-
+        Assertions.assertThrows(InvalidTitleException.class, () -> productService.findProductByTitle(testTitle));
     }
+
     @Test
-     void testFindProductByTitle_Empty_Title() {
+    void testFindProductByTitle_Empty_Title() {
         // Arrange
         Price mockPrice = new Price();
         mockPrice.setAmount(100);
@@ -112,11 +104,8 @@ import static org.mockito.Mockito.when;
         mockProduct.setCategory(mockCategory);
         when(productRepository.findByTitle(testTitle)).thenReturn(mockProduct);
 
-        //Assert & Act
+        // Assert & Act
 
-        Assertions.assertThrows(InvalidTitleException.class,() -> productService.findProductByTitle(testTitle));
-
-
+        Assertions.assertThrows(InvalidTitleException.class, () -> productService.findProductByTitle(testTitle));
     }
-
 }

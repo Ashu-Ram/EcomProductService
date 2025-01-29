@@ -12,9 +12,8 @@ import com.scaler.productservice.repo.OrderRepository;
 import com.scaler.productservice.repo.PriceRepository;
 import com.scaler.productservice.repo.ProductRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 public class InitServiceImpl implements InitService {
@@ -26,8 +25,12 @@ public class InitServiceImpl implements InitService {
 
     private final AuthorRepository authorRepository;
 
-
-    public InitServiceImpl(ProductRepository productRepository, OrderRepository orderRepository, PriceRepository priceRepository, CategoryRepository categoryRepository, AuthorRepository authorRepository) {
+    public InitServiceImpl(
+            ProductRepository productRepository,
+            OrderRepository orderRepository,
+            PriceRepository priceRepository,
+            CategoryRepository categoryRepository,
+            AuthorRepository authorRepository) {
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
         this.priceRepository = priceRepository;
@@ -59,12 +62,10 @@ public class InitServiceImpl implements InitService {
         priceWatch.setAmount(300000);
         priceWatch.setDiscount(0);
 
-
         Price pricePS5 = new Price();
         pricePS5.setCurrency("INR");
         pricePS5.setAmount(500000);
         pricePS5.setDiscount(0);
-
 
         priceIPhone = priceRepository.save(priceIPhone);
         priceMackBook = priceRepository.save(priceMackBook);
@@ -87,7 +88,6 @@ public class InitServiceImpl implements InitService {
         mackbook.setCategory(electronics);
         mackbook = productRepository.save(mackbook);
 
-
         Product watch = new Product();
         watch.setTitle("watch Series 10");
         watch.setDescription("BEst watch ever");
@@ -104,7 +104,6 @@ public class InitServiceImpl implements InitService {
         ps5.setCategory(electronics);
         ps5 = productRepository.save(ps5);
 
-
         Order order = new Order();
         order.setProducts(List.of(iphone, mackbook, watch));
         order = orderRepository.save(order);
@@ -115,15 +114,16 @@ public class InitServiceImpl implements InitService {
         Book book3 = new Book("Book3", author);
 
         author.setBooks(List.of(book1, book2, book3));
-        authorRepository.save(author); /// cascade all -> If we save author , all dependent object should also get saved
+        authorRepository.save(
+                author); /// cascade all -> If we save author , all dependent object should also get saved
 
         Author savedAuthor = authorRepository.findById(1).get();
 
         // List<Book> books= bookRepo.findByAuthor_Id(savedAuthor.getId();
-        //savedAuthor.setBooks(books);
-       // System.out.println(savedAuthor.getName());
+        // savedAuthor.setBooks(books);
+        // System.out.println(savedAuthor.getName());
         List<Book> books = savedAuthor.getBooks();
-         System.out.println(books);
-      // bookRepo.findByAuthor_Id/(int authorId);
+        System.out.println(books);
+        // bookRepo.findByAuthor_Id/(int authorId);
     }
 }

@@ -9,20 +9,16 @@ import com.scaler.productservice.mapper.ProductMapper;
 import com.scaler.productservice.model.Product;
 import com.scaler.productservice.repo.PriceRepository;
 import com.scaler.productservice.repo.ProductRepository;
-import org.springframework.stereotype.Service;
-
-import java.security.InvalidAlgorithmParameterException;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
 
-
     private final PriceRepository priceRepository;
     private final ProductRepository productRepository;
 
-    public ProductServiceImpl(PriceRepository priceRepository,
-                              ProductRepository productRepository) {
+    public ProductServiceImpl(PriceRepository priceRepository, ProductRepository productRepository) {
         this.priceRepository = priceRepository;
         this.productRepository = productRepository;
     }
@@ -32,7 +28,8 @@ public class ProductServiceImpl implements ProductService {
 
         List<Product> products = productRepository.findAll();
 
-        ProductListResponseDTO productListResponseDTO = ProductMapper.convertProductListToProductListResponseDTO(products);
+        ProductListResponseDTO productListResponseDTO =
+                ProductMapper.convertProductListToProductListResponseDTO(products);
 
         return productListResponseDTO;
     }
@@ -46,7 +43,6 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO) {
         return null;
     }
-
 
     @Override
     public boolean deleteProduct(int id) {
@@ -65,7 +61,6 @@ public class ProductServiceImpl implements ProductService {
 
         if (title == null || title.isEmpty()) {
             throw new InvalidTitleException("Title is Invalid");
-
         }
         Product product = productRepository.findByTitle(title);
         if (product == null) {
@@ -73,8 +68,5 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return ProductMapper.convertProductToProductResponseDTO(product);
-
-
-
     }
 }
