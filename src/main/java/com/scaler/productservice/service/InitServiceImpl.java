@@ -78,6 +78,7 @@ public class InitServiceImpl implements InitService {
         iphone.setImage("https://someImageURL");
         iphone.setPrice(priceIPhone);
         iphone.setCategory(electronics);
+        iphone.setInventoryCount(110);
         iphone = productRepository.save(iphone);
 
         Product mackbook = new Product();
@@ -86,6 +87,7 @@ public class InitServiceImpl implements InitService {
         mackbook.setImage("https://someImageURL");
         mackbook.setPrice(priceMackBook);
         mackbook.setCategory(electronics);
+        mackbook.setInventoryCount(21);
         mackbook = productRepository.save(mackbook);
 
         Product watch = new Product();
@@ -94,6 +96,7 @@ public class InitServiceImpl implements InitService {
         watch.setImage("https://someImageURL");
         watch.setPrice(priceWatch);
         watch.setCategory(electronics);
+        watch.setInventoryCount(55);
         watch = productRepository.save(watch);
 
         Product ps5 = new Product();
@@ -101,6 +104,7 @@ public class InitServiceImpl implements InitService {
         ps5.setDescription("Best Play Station");
         ps5.setImage("https://someImageURL");
         ps5.setPrice(pricePS5);
+        ps5.setInventoryCount(13);
         ps5.setCategory(electronics);
         ps5 = productRepository.save(ps5);
 
