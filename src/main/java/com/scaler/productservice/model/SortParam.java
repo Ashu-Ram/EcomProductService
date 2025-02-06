@@ -1,6 +1,5 @@
 package com.scaler.productservice.model;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class SortParam {
     private String sortParamName;
-    private String sortType; //ASC or DESC
+    private String sortType; // ASC or DESC
 }

@@ -10,6 +10,9 @@ import com.scaler.productservice.model.Product;
 import com.scaler.productservice.repo.PriceRepository;
 import com.scaler.productservice.repo.ProductRepository;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.stereotype.Service;
 
 @Service("productService")
@@ -17,10 +20,12 @@ public class ProductServiceImpl implements ProductService {
 
     private final PriceRepository priceRepository;
     private final ProductRepository productRepository;
+    //  private final OpenSearchProductRepository openSearchProductRepository;
 
     public ProductServiceImpl(PriceRepository priceRepository, ProductRepository productRepository) {
         this.priceRepository = priceRepository;
         this.productRepository = productRepository;
+        //  this.openSearchProductRepository = openSearchProductRepository;
     }
 
     @Override
@@ -35,14 +40,36 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponseDTO getProductById(int id) {
+    public ProductResponseDTO getProductById(int id) throws ProductNotFoundException {
         return null;
+    }
+
+
+    public ProductResponseDTO getProductById(UUID id) throws ProductNotFoundException {
+        Optional<Product> productOptional = productRepository.findById(id);
+
+        if (productOptional.isEmpty()) {
+            throw new ProductNotFoundException("Product with ID " + id + " not found");
+        }
+
+        return ProductMapper.convertProductToProductResponseDTO(productOptional.get());
     }
 
     @Override
     public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO) {
         return null;
     }
+
+    //    public ProductResponseDTO createProduct(GenericProductDto genericProductDto) {
+    //              //  Product product = new Product();
+    //       // product.setTitle(genericProductDto.getTitle());
+    //      //  product.setImage(genericProductDto.getImage());
+    //       // product.setInventoryCount(10);
+    //
+    //        Product savedProduct  = productRepository.save(product);
+    //       // openSearchProductRepository.save(savedProduct);
+    //        return null;
+    //    }
 
     @Override
     public boolean deleteProduct(int id) {

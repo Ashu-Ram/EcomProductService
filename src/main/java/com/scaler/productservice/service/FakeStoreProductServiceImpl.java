@@ -8,6 +8,8 @@ import com.scaler.productservice.dto.*;
 import com.scaler.productservice.exception.ProductNotFoundException;
 import com.scaler.productservice.model.Product;
 import java.util.List;
+import java.util.UUID;
+
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -34,6 +36,11 @@ public class FakeStoreProductServiceImpl implements ProductService {
         }
 
         return productListResponseDTO;
+    }
+
+    @Override
+    public ProductResponseDTO getProductById(UUID id) throws ProductNotFoundException {
+        return null;
     }
 
     @Override

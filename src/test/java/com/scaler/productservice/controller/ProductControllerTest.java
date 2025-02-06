@@ -138,7 +138,7 @@ class ProductControllerTest {
                 .andExpect(content().string(resString));
     }
 
-// UNIT TESTING  GET PRODUCT BY ID FAILURE
+    // UNIT TESTING  GET PRODUCT BY ID FAILURE
     @Test
     void findProductByIdFailure() throws Exception {
         when(productService.getProductById(1)).thenThrow(new ProductNotFoundException("Product Not Found"));
@@ -147,7 +147,7 @@ class ProductControllerTest {
                 .andExpect(content().string("{\"message\":\"Product Not Found\",\"messageCode\":404}"));
     }
 
-   //  UNIT TESTING GET PRODUCT BY TITLE
+    //  UNIT TESTING GET PRODUCT BY TITLE
     @Test
     void findProductByTitleSucesss() throws Exception {
 
@@ -166,10 +166,6 @@ class ProductControllerTest {
                 .andExpect(status().is(200))
                 .andExpect(content().string(resString));
     }
-
-
-
-
 
     private String convertToJson(Object object) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();

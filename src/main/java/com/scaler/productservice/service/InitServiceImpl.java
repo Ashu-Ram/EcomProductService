@@ -74,11 +74,11 @@ public class InitServiceImpl implements InitService {
 
         Product iphone = new Product();
         iphone.setTitle("Iphone 15 PRo");
-        iphone.setDescription("BEst IPhone");
+        iphone.setDescription("fifteen pro");
         iphone.setImage("https://someImageURL");
         iphone.setPrice(priceIPhone);
         iphone.setCategory(electronics);
-        iphone.setInventoryCount(110);
+        iphone.setInventoryCount(707);
         iphone = productRepository.save(iphone);
 
         Product mackbook = new Product();

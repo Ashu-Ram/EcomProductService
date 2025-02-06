@@ -1,10 +1,7 @@
 package com.scaler.productservice.repo;
 
 import com.scaler.productservice.model.Product;
-
-import java.util.List;
 import java.util.UUID;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,15 +13,13 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     Product findByTitle(String title);
 
-   // List<Product> findAllByTitleContainingIgnoreCase(String title, Pageable pageable);
-
+    // List<Product> findAllByTitleContainingIgnoreCase(String title, Pageable pageable);
 
     Page<Product> findAllByTitleContainingIgnoreCase(String title, Pageable pageable);
     /*
     Select * from products where lower(title) = "iphone"
     //offset and limit.
      */
-
 
     //    Product findByTitleAndDescription(String title, String description);
     //    Product findByTitleOrDescription(String title, String description);

@@ -1,6 +1,5 @@
 package com.scaler.productservice;
 
-import com.scaler.productservice.service.InitService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,12 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class EcomProductServiceApplication implements CommandLineRunner {
 
-    private final InitService initService;
-
-    public EcomProductServiceApplication(InitService initService) {
-
-        this.initService = initService;
-    }
+    //    private final InitService initService;
+    //
+    //    public EcomProductServiceApplication(InitService initService) {
+    //
+    //        this.initService = initService;
+    //    }
 
     public static void main(String[] args) {
         SpringApplication.run(EcomProductServiceApplication.class, args);
@@ -22,6 +21,6 @@ public class EcomProductServiceApplication implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-       // initService.initiallise();
+        //  initService.initiallise();
     }
 }

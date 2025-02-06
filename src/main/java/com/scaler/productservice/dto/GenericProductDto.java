@@ -2,10 +2,9 @@ package com.scaler.productservice.dto;
 
 import com.scaler.productservice.model.Category;
 import com.scaler.productservice.model.Product;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,13 +17,12 @@ public class GenericProductDto {
     private String image;
     private int inventoryCount;
 
-
     public static GenericProductDto from(Product product) {
         GenericProductDto genericProductDto = new GenericProductDto();
         genericProductDto.setTitle(product.getTitle());
         genericProductDto.setDescription(product.getDescription());
         genericProductDto.setInventoryCount(product.getInventoryCount());
-        //genericProductDto.setPrice(product.getPrice());
+        // genericProductDto.setPrice(product.getPrice());
         genericProductDto.setImage(product.getImage());
         genericProductDto.setId(product.getId());
         genericProductDto.setCategory((product.getCategory()));
